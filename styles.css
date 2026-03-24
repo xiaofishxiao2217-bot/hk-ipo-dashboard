@@ -318,6 +318,7 @@ select:focus {
   padding: 24px;
   min-width: 0;
   overflow: hidden;
+  width: 100%;
 }
 
 .table-toolbar {
@@ -338,6 +339,7 @@ select:focus {
 }
 
 .table-wrap {
+  display: block;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   border: 1px solid var(--line);
@@ -345,6 +347,7 @@ select:focus {
   background: rgba(255, 255, 255, 0.72);
   max-width: 100%;
   position: relative;
+  contain: layout paint;
 }
 
 table {
@@ -419,7 +422,27 @@ th:nth-child(11),
 td:nth-child(11),
 th:nth-child(12),
 td:nth-child(12) {
+  min-width: 96px;
+}
+
+th:nth-child(6),
+td:nth-child(6) {
+  min-width: 160px;
+}
+
+th:nth-child(7),
+td:nth-child(7) {
   min-width: 120px;
+}
+
+th:nth-child(8),
+td:nth-child(8) {
+  min-width: 100px;
+}
+
+th:nth-child(12),
+td:nth-child(12) {
+  min-width: 128px;
 }
 
 th:nth-child(13),
