@@ -214,7 +214,7 @@ function initializeFilters() {
   ].join("");
 
   const listedDates = withDerivedFields.map((item) => item.listedDate).sort();
-  elements.startDate.value = listedDates[0];
+  elements.startDate.value = "2026-01-01";
   elements.endDate.value = listedDates[listedDates.length - 1];
   state.startDate = elements.startDate.value;
   state.endDate = elements.endDate.value;
