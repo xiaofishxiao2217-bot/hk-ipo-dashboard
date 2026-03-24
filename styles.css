@@ -189,6 +189,12 @@ select:focus {
   flex-wrap: wrap;
 }
 
+.rank-tabs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .status-tab {
   padding: 12px 18px;
   border: 1px solid var(--line);
@@ -202,6 +208,21 @@ select:focus {
   background: var(--accent);
   border-color: var(--accent);
   color: #fffaf4;
+}
+
+.rank-tab {
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.rank-tab.is-active {
+  background: rgba(18, 113, 91, 0.12);
+  border-color: rgba(18, 113, 91, 0.28);
+  color: var(--green);
 }
 
 .detail-panel {

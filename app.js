@@ -3,6 +3,7 @@ const state = {
   industry: "all",
   performance: "all",
   status: "all",
+  rankMode: "default",
   sortBy: "listedDateDesc",
   startDate: "",
   endDate: "",
@@ -18,6 +19,7 @@ const elements = {
   sortBy: document.querySelector("#sortBy"),
   resetFilters: document.querySelector("#resetFilters"),
   statusTabs: document.querySelector("#statusTabs"),
+  rankTabs: document.querySelector("#rankTabs"),
   dataSourceLabel: document.querySelector("#dataSourceLabel"),
   statsGrid: document.querySelector("#statsGrid"),
   tableBody: document.querySelector("#tableBody"),
@@ -243,10 +245,15 @@ function sortItems(items) {
     listedDateDesc: (a, b) => b.listedDate.localeCompare(a.listedDate),
     listedDateAsc: (a, b) => a.listedDate.localeCompare(b.listedDate),
     returnDesc: (a, b) => compareNullableNumbers(a.cumulativeReturn, b.cumulativeReturn),
-    subscriptionDesc: (a, b) => compareNullableNumbers(a.subscriptionMultiple, b.subscriptionMultiple)
+    subscriptionDesc: (a, b) => compareNullableNumbers(a.subscriptionMultiple, b.subscriptionMultiple),
+    grayDesc: (a, b) => compareNullableNumbers(a.grayPriceChg, b.grayPriceChg),
+    grayAsc: (a, b) => compareNullableNumbers(b.grayPriceChg, a.grayPriceChg),
+    firstDayDesc: (a, b) => compareNullableNumbers(a.firstDayChg, b.firstDayChg),
+    firstDayAsc: (a, b) => compareNullableNumbers(b.firstDayChg, a.firstDayChg)
   };
 
-  return [...items].sort(sorters[state.sortBy]);
+  const sorterKey = state.rankMode === "default" ? state.sortBy : state.rankMode;
+  return [...items].sort(sorters[sorterKey]);
 }
 
 function renderStats(items) {
@@ -465,6 +472,10 @@ function bindEvents() {
 
   elements.sortBy.addEventListener("change", (event) => {
     state.sortBy = event.target.value;
+    state.rankMode = "default";
+    for (const tab of elements.rankTabs.querySelectorAll("button[data-rank]")) {
+      tab.classList.toggle("is-active", tab.dataset.rank === "default");
+    }
     render();
   });
 
@@ -477,6 +488,25 @@ function bindEvents() {
     state.status = button.dataset.status;
     for (const tab of elements.statusTabs.querySelectorAll("button[data-status]")) {
       tab.classList.toggle("is-active", tab.dataset.status === state.status);
+    }
+    render();
+  });
+
+  elements.rankTabs.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-rank]");
+    if (!button) {
+      return;
+    }
+
+    state.rankMode = button.dataset.rank;
+    if (state.rankMode !== "default") {
+      state.status = "listed";
+      for (const tab of elements.statusTabs.querySelectorAll("button[data-status]")) {
+        tab.classList.toggle("is-active", tab.dataset.status === "listed");
+      }
+    }
+    for (const tab of elements.rankTabs.querySelectorAll("button[data-rank]")) {
+      tab.classList.toggle("is-active", tab.dataset.rank === state.rankMode);
     }
     render();
   });
@@ -497,6 +527,7 @@ function bindEvents() {
     state.industry = "all";
     state.performance = "all";
     state.status = "all";
+    state.rankMode = "default";
     state.sortBy = "listedDateDesc";
 
     elements.searchInput.value = "";
@@ -504,6 +535,9 @@ function bindEvents() {
     elements.sortBy.value = "listedDateDesc";
     for (const tab of elements.statusTabs.querySelectorAll("button[data-status]")) {
       tab.classList.toggle("is-active", tab.dataset.status === "all");
+    }
+    for (const tab of elements.rankTabs.querySelectorAll("button[data-rank]")) {
+      tab.classList.toggle("is-active", tab.dataset.rank === "default");
     }
     render();
   });
