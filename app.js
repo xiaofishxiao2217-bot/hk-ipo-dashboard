@@ -4,7 +4,8 @@ const state = {
   performance: "all",
   sortBy: "listedDateDesc",
   startDate: "",
-  endDate: ""
+  endDate: "",
+  selectedCode: ""
 };
 
 const elements = {
@@ -17,7 +18,10 @@ const elements = {
   resetFilters: document.querySelector("#resetFilters"),
   dataSourceLabel: document.querySelector("#dataSourceLabel"),
   statsGrid: document.querySelector("#statsGrid"),
-  tableBody: document.querySelector("#tableBody")
+  tableBody: document.querySelector("#tableBody"),
+  detailTitle: document.querySelector("#detailTitle"),
+  detailGrid: document.querySelector("#detailGrid"),
+  detailUse: document.querySelector("#detailUse")
 };
 
 const formatCurrency = (value) =>
@@ -25,6 +29,10 @@ const formatCurrency = (value) =>
 const formatPercent = (value) =>
   Number.isFinite(value) ? `${value >= 0 ? "+" : ""}${value.toFixed(1)}%` : "--";
 const formatMultiple = (value) => (Number.isFinite(value) ? `${value.toFixed(1)}x` : "--");
+const formatInteger = (value) => (Number.isFinite(value) ? `${Math.round(value).toLocaleString("zh-CN")}` : "--");
+const formatBillions = (value) =>
+  Number.isFinite(value) ? `HK$${value.toFixed(1)}B` : "--";
+const formatUrl = (value) => (value ? decodeText(value) : "");
 const formatDate = (value) =>
   new Intl.DateTimeFormat("zh-CN", {
     year: "numeric",
@@ -99,7 +107,10 @@ function normalizeRecord(item) {
   return {
     code: item.code ?? item.Symbol ?? "",
     name: item.name ?? item.ShortName ?? "",
+    institutionName: decodeText(item.institutionName ?? item.InstitutionName ?? ""),
     industry: item.industry ?? item.Industry ?? "未分类",
+    listedMode: decodeText(item.listedMode ?? item.ListedMode ?? ""),
+    sector: decodeText(item.sector ?? item.Sector ?? ""),
     listedDate: normalizeDate(item.listedDate ?? item.ListedDate),
     issuePrice,
     currentPrice,
@@ -114,8 +125,30 @@ function normalizeRecord(item) {
     priceRange: item.priceRange ?? item.Price ?? "",
     startDate: normalizeDate(item.startDate ?? item.Startdate),
     endDate: normalizeDate(item.endDate ?? item.Enddate),
+    resultDate: normalizeDate(item.resultDate ?? item.ResultDate),
     firstDayChg: parseNumber(item.firstDayChg ?? item.FirstDayChg),
-    grayPriceChg: parseNumber(item.grayPriceChg ?? item.GrayPriceChg)
+    firstDayOpen: parseNumber(item.firstDayOpen ?? item.FirstDayOpen),
+    grayPrice: parseNumber(item.grayPrice ?? item.GrayPrice),
+    grayPriceChg: parseNumber(item.grayPriceChg ?? item.GrayPriceChg),
+    issueLotSize: parseNumber(item.issueLotSize ?? item.Shares),
+    issueNumber: parseNumber(item.issueNumber ?? item.IssueNumber),
+    issueNumberHK: parseNumber(item.issueNumberHK ?? item.IssueNumber_HK),
+    issueNumberIntl: parseNumber(item.issueNumberIntl ?? item.IssueNumber_Other),
+    stockSumCount: parseNumber(item.stockSumCount ?? item.StockSumCount),
+    minimumCapital: parseNumber(item.minimumCapital ?? item.MinimumCapital),
+    codesRate: parseNumber(item.codesRate ?? item.CodesRate),
+    currency: decodeText(item.currency ?? item.Currency ?? "HKD"),
+    sponsors: decodeText(item.sponsors ?? item.Sponsors ?? ""),
+    coordinator: decodeText(item.coordinator ?? item.Coordinator ?? ""),
+    ledAgent: decodeText(item.ledAgent ?? item.LedAgent ?? ""),
+    coLeadAgent: decodeText(item.coLeadAgent ?? item.Co_LeadAgent ?? ""),
+    coSponsors: decodeText(item.coSponsors ?? item.Co_Sponsors ?? ""),
+    coCoordinator: decodeText(item.coCoordinator ?? item.Co_Coordinator ?? ""),
+    bookrunners: decodeText(item.bookrunners ?? item.Bookrunners ?? ""),
+    prospectusRange: decodeText(item.prospectusRange ?? item.Prospectuses ?? ""),
+    subscribedDate: decodeText(item.subscribedDate ?? item.SubscribedDate ?? ""),
+    prospectusUrl: formatUrl(item.prospectusUrl ?? item.Link),
+    useOfProceeds: decodeText(item.useOfProceeds ?? item.Use ?? "")
   };
 }
 
@@ -144,6 +177,7 @@ function initializeFilters() {
   elements.endDate.value = listedDates[listedDates.length - 1];
   state.startDate = elements.startDate.value;
   state.endDate = elements.endDate.value;
+  state.selectedCode = withDerivedFields[0]?.code ?? "";
   elements.dataSourceLabel.textContent = sourceLabel;
 }
 
@@ -245,11 +279,11 @@ function renderTable(items) {
   elements.tableBody.innerHTML = items
     .map(
       (item) => `
-        <tr>
+        <tr class="${item.code === state.selectedCode ? "is-selected" : ""}" data-code="${item.code}">
           <td><span class="ticker">${item.code}</span></td>
           <td class="company-cell">
             <strong>${item.name}</strong>
-            <small>${item.notes}</small>
+            <small>${item.institutionName || item.notes}</small>
           </td>
           <td>${item.industry}</td>
           <td>${formatDate(item.listedDate)}</td>
@@ -278,11 +312,72 @@ function renderTable(items) {
     .join("");
 }
 
+function renderDetail(item) {
+  if (!item) {
+    elements.detailTitle.textContent = "项目详情";
+    elements.detailGrid.innerHTML = "";
+    elements.detailUse.textContent = "选择一个项目后显示";
+    return;
+  }
+
+  elements.detailTitle.textContent = `${item.name} · ${item.code}`;
+
+  const groups = [
+    ["公司全称", item.institutionName || "--"],
+    ["上市板块", item.sector || "--"],
+    ["上市方式", item.listedMode || "--"],
+    ["行业", item.industry || "--"],
+    ["招股日期", item.subscribedDate || "--"],
+    ["中签结果日", item.resultDate ? formatDate(item.resultDate) : "--"],
+    ["上市日期", item.listedDate ? formatDate(item.listedDate) : "--"],
+    ["招股价区间", item.priceRange || "--"],
+    ["最终定价", formatCurrency(item.issuePrice)],
+    ["每手股数", formatInteger(item.issueLotSize)],
+    ["公开发售股数", formatInteger(item.issueNumberHK)],
+    ["国际配售股数", formatInteger(item.issueNumberIntl)],
+    ["总发行股数", formatInteger(item.issueNumber)],
+    ["总手数", formatInteger(item.stockSumCount)],
+    ["认购倍数", formatMultiple(item.subscriptionMultiple)],
+    ["中签率", Number.isFinite(item.codesRate) ? `${item.codesRate}%` : "--"],
+    ["入场费", formatCurrency(item.minimumCapital)],
+    ["募资额", formatBillions(item.fundraisingHKD)],
+    ["暗盘价", formatCurrency(item.grayPrice)],
+    ["暗盘涨跌幅", formatPercent(item.grayPriceChg)],
+    ["首日开盘价", formatCurrency(item.firstDayOpen)],
+    ["首日涨跌幅", formatPercent(item.firstDayChg)],
+    ["保荐人", item.sponsors || "--"],
+    ["账簿管理人", item.bookrunners || "--"],
+    ["联席整体协调人", item.coCoordinator || item.coordinator || "--"],
+    ["联席全球协调人", item.coLeadAgent || "--"],
+    ["联席保荐人", item.coSponsors || "--"],
+    ["招股书", item.prospectusUrl ? `<a href="${item.prospectusUrl}" target="_blank" rel="noreferrer">查看原文</a>` : "--"]
+  ];
+
+  elements.detailGrid.innerHTML = groups
+    .map(
+      ([label, value]) => `
+        <article class="detail-card">
+          <p class="detail-label">${label}</p>
+          <div class="detail-value">${value}</div>
+        </article>
+      `
+    )
+    .join("");
+
+  elements.detailUse.innerHTML = item.useOfProceeds
+    ? item.useOfProceeds.replace(/<br\s*\/?>/gi, "<br>")
+    : "暂无披露";
+}
+
 function render() {
   const filtered = withDerivedFields.filter(matchesFilters);
   const sorted = sortItems(filtered);
+  if (!sorted.some((item) => item.code === state.selectedCode)) {
+    state.selectedCode = sorted[0]?.code ?? "";
+  }
   renderStats(sorted);
   renderTable(sorted);
+  renderDetail(sorted.find((item) => item.code === state.selectedCode));
 }
 
 function bindEvents() {
@@ -313,6 +408,16 @@ function bindEvents() {
 
   elements.sortBy.addEventListener("change", (event) => {
     state.sortBy = event.target.value;
+    render();
+  });
+
+  elements.tableBody.addEventListener("click", (event) => {
+    const row = event.target.closest("tr[data-code]");
+    if (!row) {
+      return;
+    }
+
+    state.selectedCode = row.dataset.code;
     render();
   });
 
