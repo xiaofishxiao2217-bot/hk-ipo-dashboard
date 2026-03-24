@@ -389,17 +389,13 @@ function renderDetail(item) {
 
   const groups = [
     ["当前分类", getStatusLabel(item.statusCategory)],
-    ["行业", item.industry || "--"],
-    ["招股日期", item.subscribedDate || "--"],
     ["上市日期", item.listedDate ? formatDate(item.listedDate) : "--"],
     ["招股价区间", item.priceRange || "--"],
     ["认购倍数", formatMultiple(item.subscriptionMultiple)],
-    ["中签率", Number.isFinite(item.codesRate) ? `${item.codesRate}%` : "--"],
     ["入场费", formatCurrency(item.minimumCapital)],
     ["募资额", formatBillions(item.fundraisingHKD)],
     ["暗盘涨跌幅", formatPercent(item.grayPriceChg)],
     ["首日涨跌幅", formatPercent(item.firstDayChg)],
-    ["账簿管理人", item.bookrunners || "--"],
     ["招股书", item.prospectusUrl ? `<a href="${item.prospectusUrl}" target="_blank" rel="noreferrer">查看原文</a>` : "--"]
   ];
 
