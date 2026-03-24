@@ -383,7 +383,7 @@ function renderTable(items) {
 
 function renderDetail(item) {
   if (!item) {
-    elements.detailTitle.textContent = "核心信息";
+    elements.detailTitle.textContent = "已抓取信息";
     elements.detailGrid.innerHTML = "";
     elements.detailUse.textContent = "选择一个项目后显示";
     return;
@@ -393,16 +393,36 @@ function renderDetail(item) {
 
   const groups = [
     ["当前分类", getStatusLabel(item.statusCategory)],
+    ["公司全称", item.institutionName || "--"],
     ["行业", item.industry || "--"],
+    ["上市板块", item.sector || "--"],
+    ["上市方式", item.listedMode || "--"],
     ["招股日期", item.subscribedDate || "--"],
+    ["招股开始日", item.startDate ? formatDate(item.startDate) : "--"],
+    ["招股结束日", item.endDate ? formatDate(item.endDate) : "--"],
+    ["中签结果日", item.resultDate ? formatDate(item.resultDate) : "--"],
     ["上市日期", item.listedDate ? formatDate(item.listedDate) : "--"],
     ["招股价区间", item.priceRange || "--"],
+    ["最终定价", formatCurrency(item.issuePrice)],
     ["认购倍数", formatMultiple(item.subscriptionMultiple)],
     ["中签率", Number.isFinite(item.codesRate) ? `${item.codesRate}%` : "--"],
     ["入场费", formatCurrency(item.minimumCapital)],
+    ["每手股数", formatInteger(item.issueLotSize)],
+    ["总发行股数", formatInteger(item.issueNumber)],
+    ["公开发售股数", formatInteger(item.issueNumberHK)],
+    ["国际配售股数", formatInteger(item.issueNumberIntl)],
+    ["总手数", formatInteger(item.stockSumCount)],
     ["募资额", formatBillions(item.fundraisingHKD)],
+    ["币种", item.currency || "--"],
+    ["暗盘价", formatCurrency(item.grayPrice)],
     ["暗盘涨跌幅", formatPercent(item.grayPriceChg)],
+    ["首日开盘价", formatCurrency(item.firstDayOpen)],
     ["首日涨跌幅", formatPercent(item.firstDayChg)],
+    ["保荐人", item.sponsors || "--"],
+    ["账簿管理人", item.bookrunners || "--"],
+    ["联席整体协调人", item.coCoordinator || item.coordinator || "--"],
+    ["联席全球协调人", item.coLeadAgent || "--"],
+    ["联席保荐人", item.coSponsors || "--"],
     ["招股书", item.prospectusUrl ? `<a href="${item.prospectusUrl}" target="_blank" rel="noreferrer">查看原文</a>` : "--"]
   ];
 
