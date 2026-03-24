@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>港股 IPO 看板</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="panel controls-panel">
+        <div>
+          <p class="eyebrow">Hong Kong IPO Dashboard</p>
+          <h1>港股 IPO 看板</h1>
+          <p class="subcopy">
+            聚焦指定时间窗口内上市的新股，快速筛选、比较认购热度与上市后表现。
+          </p>
+        </div>
+
+        <section class="controls-group">
+          <label class="control">
+            <span>开始日期</span>
+            <input type="date" id="startDate" />
+          </label>
+          <label class="control">
+            <span>结束日期</span>
+            <input type="date" id="endDate" />
+          </label>
+          <label class="control">
+            <span>行业</span>
+            <select id="industryFilter"></select>
+          </label>
+          <label class="control">
+            <span>表现状态</span>
+            <select id="performanceFilter">
+              <option value="all">全部</option>
+              <option value="positive">累计上涨</option>
+              <option value="negative">累计下跌</option>
+            </select>
+          </label>
+          <label class="control">
+            <span>搜索公司 / 代码</span>
+            <input type="search" id="searchInput" placeholder="例如：02468 / 智能制造" />
+          </label>
+        </section>
+
+        <section class="notes-card">
+          <p class="notes-title">数据说明</p>
+          <p>
+            页面优先读取 <code>ipo-live.js</code> 里的真实 IPO 快照；如果没有快照，再回退到 <code>data.js</code> 示例数据。
+          </p>
+          <p>
+            iqdii 当前接口可以稳定提供上市日期、认购倍数、招股价区间、募资额、暗盘涨跌幅、首日涨跌幅；现价和累计涨跌幅还需要再补行情源。
+          </p>
+        </section>
+      </aside>
+
+      <main class="content">
+        <section class="hero panel">
+          <div>
+            <p class="eyebrow">Snapshot</p>
+            <h2>按上市日期过滤的新股表现总览</h2>
+          </div>
+          <div class="hero-meta">
+            <span id="dataSourceLabel">正在识别数据源</span>
+            <button id="resetFilters" class="ghost-button">重置筛选</button>
+          </div>
+        </section>
+
+        <section class="stats-grid" id="statsGrid"></section>
+
+        <section class="table-panel panel">
+          <div class="table-toolbar">
+            <div>
+              <p class="eyebrow">IPO Universe</p>
+              <h3>上市项目明细</h3>
+            </div>
+            <label class="control compact">
+              <span>排序方式</span>
+              <select id="sortBy">
+                <option value="listedDateDesc">上市日期: 最近优先</option>
+                <option value="listedDateAsc">上市日期: 最早优先</option>
+                <option value="returnDesc">累计涨跌幅: 高到低</option>
+                <option value="subscriptionDesc">认购倍数: 高到低</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>代码</th>
+                  <th>公司</th>
+                  <th>行业</th>
+                  <th>上市日期</th>
+                  <th>发行价</th>
+                  <th>现价</th>
+                  <th>累计涨跌幅</th>
+                  <th>认购倍数</th>
+                  <th>暗盘涨跌幅</th>
+                  <th>首日涨跌幅</th>
+                  <th>募资额</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./data.js"></script>
+    <script src="./ipo-live.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
