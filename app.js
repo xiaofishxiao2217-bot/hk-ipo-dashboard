@@ -1,7 +1,6 @@
 const state = {
   search: "",
   industry: "all",
-  performance: "all",
   status: "all",
   rankMode: "default",
   sortBy: "listedDateDesc",
@@ -15,7 +14,6 @@ const elements = {
   startDate: document.querySelector("#startDate"),
   endDate: document.querySelector("#endDate"),
   industryFilter: document.querySelector("#industryFilter"),
-  performanceFilter: document.querySelector("#performanceFilter"),
   searchInput: document.querySelector("#searchInput"),
   rowLimit: document.querySelector("#rowLimit"),
   sortBy: document.querySelector("#sortBy"),
@@ -228,10 +226,6 @@ function matchesFilters(item) {
     (!state.endDate || item.listedDate <= state.endDate);
   const inIndustry = state.industry === "all" || item.industry === state.industry;
   const inStatus = state.status === "all" || item.statusCategory === state.status;
-  const inPerformance =
-    state.performance === "all" ||
-    (state.performance === "positive" && item.cumulativeReturn >= 0) ||
-    (state.performance === "negative" && item.cumulativeReturn < 0);
   const keyword = state.search.trim().toLowerCase();
   const inSearch =
     !keyword ||
@@ -239,7 +233,7 @@ function matchesFilters(item) {
     item.code.toLowerCase().includes(keyword) ||
     item.industry.toLowerCase().includes(keyword);
 
-  return inDateRange && inIndustry && inStatus && inPerformance && inSearch;
+  return inDateRange && inIndustry && inStatus && inSearch;
 }
 
 function sortItems(items) {
@@ -463,11 +457,6 @@ function bindEvents() {
     render();
   });
 
-  elements.performanceFilter.addEventListener("change", (event) => {
-    state.performance = event.target.value;
-    render();
-  });
-
   elements.searchInput.addEventListener("input", (event) => {
     state.search = event.target.value;
     render();
@@ -533,7 +522,6 @@ function bindEvents() {
     initializeFilters();
     state.search = "";
     state.industry = "all";
-    state.performance = "all";
     state.status = "all";
     state.rankMode = "default";
     state.sortBy = "listedDateDesc";
@@ -541,7 +529,6 @@ function bindEvents() {
 
     elements.searchInput.value = "";
     elements.rowLimit.value = "20";
-    elements.performanceFilter.value = "all";
     elements.sortBy.value = "listedDateDesc";
     for (const tab of elements.statusTabs.querySelectorAll("button[data-status]")) {
       tab.classList.toggle("is-active", tab.dataset.status === "all");
