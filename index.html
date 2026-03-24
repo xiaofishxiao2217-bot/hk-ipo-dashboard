@@ -112,15 +112,27 @@
               <h3>上市项目明细</h3>
               <p class="table-hint">基础部分默认显示到一手入场费，右侧扩展字段可在表格内横向滑动查看，不影响页面主体格局。</p>
             </div>
-            <label class="control compact">
-              <span>排序方式</span>
-              <select id="sortBy">
-                <option value="listedDateDesc">上市日期: 最近优先</option>
-                <option value="listedDateAsc">上市日期: 最早优先</option>
-                <option value="returnDesc">累计涨跌幅: 高到低</option>
-                <option value="subscriptionDesc">认购倍数: 高到低</option>
-              </select>
-            </label>
+            <div class="toolbar-controls">
+              <label class="control compact">
+                <span>显示条数</span>
+                <select id="rowLimit">
+                  <option value="10">前 10 支</option>
+                  <option value="20" selected>前 20 支</option>
+                  <option value="50">前 50 支</option>
+                  <option value="100">前 100 支</option>
+                  <option value="9999">全部</option>
+                </select>
+              </label>
+              <label class="control compact">
+                <span>排序方式</span>
+                <select id="sortBy">
+                  <option value="listedDateDesc">上市日期: 最近优先</option>
+                  <option value="listedDateAsc">上市日期: 最早优先</option>
+                  <option value="returnDesc">累计涨跌幅: 高到低</option>
+                  <option value="subscriptionDesc">认购倍数: 高到低</option>
+                </select>
+              </label>
+            </div>
           </div>
 
           <div class="table-wrap">

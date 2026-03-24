@@ -5,6 +5,7 @@ const state = {
   status: "all",
   rankMode: "default",
   sortBy: "listedDateDesc",
+  rowLimit: 20,
   startDate: "",
   endDate: "",
   selectedCode: ""
@@ -16,6 +17,7 @@ const elements = {
   industryFilter: document.querySelector("#industryFilter"),
   performanceFilter: document.querySelector("#performanceFilter"),
   searchInput: document.querySelector("#searchInput"),
+  rowLimit: document.querySelector("#rowLimit"),
   sortBy: document.querySelector("#sortBy"),
   resetFilters: document.querySelector("#resetFilters"),
   statusTabs: document.querySelector("#statusTabs"),
@@ -436,12 +438,13 @@ function getStatusLabel(statusCategory) {
 function render() {
   const filtered = withDerivedFields.filter(matchesFilters);
   const sorted = sortItems(filtered);
-  if (!sorted.some((item) => item.code === state.selectedCode)) {
-    state.selectedCode = sorted[0]?.code ?? "";
+  const limited = sorted.slice(0, state.rowLimit);
+  if (!limited.some((item) => item.code === state.selectedCode)) {
+    state.selectedCode = limited[0]?.code ?? "";
   }
-  renderStats(sorted);
-  renderTable(sorted);
-  renderDetail(sorted.find((item) => item.code === state.selectedCode));
+  renderStats(limited);
+  renderTable(limited);
+  renderDetail(limited.find((item) => item.code === state.selectedCode));
 }
 
 function bindEvents() {
@@ -467,6 +470,11 @@ function bindEvents() {
 
   elements.searchInput.addEventListener("input", (event) => {
     state.search = event.target.value;
+    render();
+  });
+
+  elements.rowLimit.addEventListener("change", (event) => {
+    state.rowLimit = Number(event.target.value);
     render();
   });
 
@@ -529,8 +537,10 @@ function bindEvents() {
     state.status = "all";
     state.rankMode = "default";
     state.sortBy = "listedDateDesc";
+    state.rowLimit = 20;
 
     elements.searchInput.value = "";
+    elements.rowLimit.value = "20";
     elements.performanceFilter.value = "all";
     elements.sortBy.value = "listedDateDesc";
     for (const tab of elements.statusTabs.querySelectorAll("button[data-status]")) {
