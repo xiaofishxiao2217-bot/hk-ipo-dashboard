@@ -34,6 +34,10 @@ const formatMultiple = (value) => (Number.isFinite(value) ? `${value.toFixed(1)}
 const formatInteger = (value) => (Number.isFinite(value) ? `${Math.round(value).toLocaleString("zh-CN")}` : "--");
 const formatBillions = (value) =>
   Number.isFinite(value) ? `HK$${value.toFixed(1)}B` : "--";
+const formatBillionsPlain = (value) => (Number.isFinite(value) ? value.toFixed(1) : "--");
+const formatTenThousands = (value) => (Number.isFinite(value) ? (value / 10000).toFixed(2) : "--");
+const formatPercentPlain = (value) =>
+  Number.isFinite(value) ? `${value >= 0 ? "+" : ""}${value.toFixed(2)}%` : "--";
 const formatUrl = (value) => (value ? decodeText(value) : "");
 const formatDate = (value) =>
   new Intl.DateTimeFormat("zh-CN", {
@@ -76,6 +80,22 @@ function parseNumber(value) {
 
   const parsed = Number(String(value).replace(/,/g, ""));
   return Number.isFinite(parsed) ? parsed : null;
+}
+
+function percentValue(part, total) {
+  if (!Number.isFinite(part) || !Number.isFinite(total) || total === 0) {
+    return null;
+  }
+
+  return (part / total) * 100;
+}
+
+function booleanLabel(value) {
+  if (!Number.isFinite(value)) {
+    return "--";
+  }
+
+  return value > 0 ? "是" : "否";
 }
 
 function normalizeDate(value) {
@@ -124,6 +144,9 @@ function normalizeRecord(item) {
     industry: item.industry ?? item.Industry ?? "未分类",
     listedMode: decodeText(item.listedMode ?? item.ListedMode ?? ""),
     sector: decodeText(item.sector ?? item.Sector ?? ""),
+    listingYear: listedDate ? listedDate.slice(0, 4) : "--",
+    newStockType: decodeText(item.newStockType ?? item.Sector ?? item.ListedMode ?? ""),
+    ahDiscount: parseNumber(item.ahDiscount),
     listedDate,
     issuePrice,
     currentPrice,
@@ -285,7 +308,7 @@ function renderTable(items) {
   if (!items.length) {
     elements.tableBody.innerHTML = `
       <tr>
-        <td colspan="11" class="empty-state">当前筛选条件下没有匹配的 IPO 项目。</td>
+        <td colspan="29" class="empty-state">当前筛选条件下没有匹配的 IPO 项目。</td>
       </tr>
     `;
     return;
@@ -293,24 +316,50 @@ function renderTable(items) {
 
   elements.tableBody.innerHTML = items
     .map(
-      (item) => `
+      (item) => {
+        const publicRatio = percentValue(item.issueNumberHK, item.issueNumber);
+        const internationalRatio = percentValue(item.issueNumberIntl, item.issueNumber);
+        const oneHandGrayProfit =
+          Number.isFinite(item.grayPrice) && Number.isFinite(item.issuePrice) && Number.isFinite(item.issueLotSize)
+            ? (item.grayPrice - item.issuePrice) * item.issueLotSize
+            : null;
+        const firstDayPrice =
+          Number.isFinite(item.issuePrice) && Number.isFinite(item.firstDayChg)
+            ? item.issuePrice * (1 + item.firstDayChg / 100)
+            : null;
+        const oneHandFirstDayProfit =
+          Number.isFinite(firstDayPrice) && Number.isFinite(item.issuePrice) && Number.isFinite(item.issueLotSize)
+            ? (firstDayPrice - item.issuePrice) * item.issueLotSize
+            : null;
+
+        return `
         <tr class="${item.code === state.selectedCode ? "is-selected" : ""}" data-code="${item.code}">
+          <td>${item.listingYear}</td>
           <td><span class="ticker">${item.code}</span></td>
           <td class="company-cell">
             <strong>${item.name}</strong>
             <small>${item.institutionName || item.notes}</small>
             <span class="status-chip ${item.statusCategory}">${getStatusLabel(item.statusCategory)}</span>
           </td>
-          <td>${item.industry}</td>
-          <td>${formatDate(item.listedDate)}</td>
-          <td>${item.priceRange || formatCurrency(item.issuePrice)}</td>
-          <td>${formatCurrency(item.currentPrice)}</td>
-          <td>
-            <span class="pill ${getPillClass(item.cumulativeReturn)}">
-              ${formatPercent(item.cumulativeReturn)}
-            </span>
-          </td>
-          <td>${formatMultiple(item.subscriptionMultiple)}</td>
+          <td>${item.newStockType || "--"}</td>
+          <td>${formatPercentPlain(item.ahDiscount)}</td>
+          <td>${item.sponsors || "--"}</td>
+          <td>${item.ledAgent || item.coordinator || "--"}</td>
+          <td>${item.listedMode || "--"}</td>
+          <td>${formatInteger(item.issueLotSize)}</td>
+          <td>${formatTenThousands(item.issueNumber)}</td>
+          <td>${formatTenThousands(item.stockSumCount)}</td>
+          <td>${formatCurrency(item.minimumCapital)}</td>
+          <td>${formatPercentPlain(publicRatio)}</td>
+          <td>--</td>
+          <td>${formatBillionsPlain(item.fundraisingHKD)}</td>
+          <td>--</td>
+          <td>${formatTenThousands(item.issueNumberIntl)}</td>
+          <td>${formatTenThousands(item.issueNumberHK)}</td>
+          <td>--</td>
+          <td>--</td>
+          <td>--</td>
+          <td>--</td>
           <td>
             <span class="pill ${getPillClass(item.grayPriceChg)}">
               ${formatPercent(item.grayPriceChg)}
@@ -321,9 +370,13 @@ function renderTable(items) {
               ${formatPercent(item.firstDayChg)}
             </span>
           </td>
-          <td>${Number.isFinite(item.fundraisingHKD) ? `HK$${item.fundraisingHKD.toFixed(1)}B` : "--"}</td>
+          <td>${formatCurrency(oneHandGrayProfit)}</td>
+          <td>${formatCurrency(oneHandFirstDayProfit)}</td>
+          <td>${booleanLabel(item.grayPriceChg)}</td>
+          <td>${booleanLabel(item.firstDayChg)}</td>
         </tr>
       `
+      }
     )
     .join("");
 }
