@@ -46,6 +46,18 @@ python3 scripts/fetch_iqdii_ipo_snapshot.py
 
 然后再推送到 GitHub，Vercel 部署出来的页面就会带上最新快照。
 
+## 自动更新
+
+仓库已经包含 GitHub Actions 工作流：
+
+- 文件：`/Users/hzyitong-15/Documents/Playground/hk-ipo-dashboard/.github/workflows/update-ipo-snapshot.yml`
+- 用途：自动刷新 `ipo-live.js` 并推回仓库
+- 触发方式：
+  - 每天北京时间 `09:05`
+  - GitHub Actions 页面手动触发 `Update IPO Snapshot`
+
+只要仓库连接着 Vercel，工作流推送新快照后，Vercel 会自动重新部署线上站点。
+
 ## 数据结构
 
 示例数据位于 `/Users/hzyitong-15/Documents/Playground/hk-ipo-dashboard/data.js`。
