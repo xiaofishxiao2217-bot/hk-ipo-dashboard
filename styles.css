@@ -297,12 +297,19 @@ select:focus {
   margin-bottom: 18px;
 }
 
+.table-hint {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .compact {
   min-width: 220px;
 }
 
 .table-wrap {
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
   border: 1px solid var(--line);
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.72);
@@ -310,7 +317,7 @@ select:focus {
 
 table {
   width: 100%;
-  min-width: 980px;
+  min-width: 3600px;
   border-collapse: collapse;
 }
 
@@ -327,6 +334,50 @@ th {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #f8f1e8;
+}
+
+th:nth-child(1),
+td:nth-child(1),
+th:nth-child(2),
+td:nth-child(2),
+th:nth-child(3),
+td:nth-child(3) {
+  position: sticky;
+  z-index: 3;
+  background: rgba(255, 250, 244, 0.98);
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+  left: 0;
+  min-width: 92px;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  left: 92px;
+  min-width: 110px;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  left: 202px;
+  min-width: 240px;
+}
+
+th:nth-child(1),
+th:nth-child(2),
+th:nth-child(3) {
+  z-index: 6;
+  background: #f8f1e8;
+}
+
+td:nth-child(3) {
+  box-shadow: 12px 0 18px rgba(31, 41, 55, 0.04);
 }
 
 tbody tr:hover {
