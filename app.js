@@ -2,6 +2,7 @@ const state = {
   search: "",
   industry: "all",
   performance: "all",
+  status: "all",
   sortBy: "listedDateDesc",
   startDate: "",
   endDate: "",
@@ -16,6 +17,7 @@ const elements = {
   searchInput: document.querySelector("#searchInput"),
   sortBy: document.querySelector("#sortBy"),
   resetFilters: document.querySelector("#resetFilters"),
+  statusTabs: document.querySelector("#statusTabs"),
   dataSourceLabel: document.querySelector("#dataSourceLabel"),
   statsGrid: document.querySelector("#statsGrid"),
   tableBody: document.querySelector("#tableBody"),
@@ -97,12 +99,23 @@ function decodeText(value) {
 }
 
 function normalizeRecord(item) {
+  const today = new Date().toISOString().slice(0, 10);
   const issuePrice = parseNumber(item.issuePrice ?? item.IPOPricing ?? item.Price_Floor);
   const currentPrice = parseNumber(item.currentPrice);
   const cumulativeReturn =
     Number.isFinite(issuePrice) && Number.isFinite(currentPrice) && issuePrice !== 0
       ? ((currentPrice - issuePrice) / issuePrice) * 100
       : null;
+  const listedDate = normalizeDate(item.listedDate ?? item.ListedDate);
+  const startDate = normalizeDate(item.startDate ?? item.Startdate);
+  const endDate = normalizeDate(item.endDate ?? item.Enddate);
+  let statusCategory = "pending";
+
+  if (listedDate && listedDate <= today) {
+    statusCategory = "listed";
+  } else if (endDate && endDate >= today) {
+    statusCategory = "subscription";
+  }
 
   return {
     code: item.code ?? item.Symbol ?? "",
@@ -111,7 +124,7 @@ function normalizeRecord(item) {
     industry: item.industry ?? item.Industry ?? "未分类",
     listedMode: decodeText(item.listedMode ?? item.ListedMode ?? ""),
     sector: decodeText(item.sector ?? item.Sector ?? ""),
-    listedDate: normalizeDate(item.listedDate ?? item.ListedDate),
+    listedDate,
     issuePrice,
     currentPrice,
     subscriptionMultiple: parseNumber(item.subscriptionMultiple ?? item.Subscribed),
@@ -122,9 +135,10 @@ function normalizeRecord(item) {
       item.notes ??
       decodeText(item.Prospectuses ? `招股期 ${item.Prospectuses}` : item.Use || "真实 IPO 快照"),
     cumulativeReturn,
+    statusCategory,
     priceRange: item.priceRange ?? item.Price ?? "",
-    startDate: normalizeDate(item.startDate ?? item.Startdate),
-    endDate: normalizeDate(item.endDate ?? item.Enddate),
+    startDate,
+    endDate,
     resultDate: normalizeDate(item.resultDate ?? item.ResultDate),
     firstDayChg: parseNumber(item.firstDayChg ?? item.FirstDayChg),
     firstDayOpen: parseNumber(item.firstDayOpen ?? item.FirstDayOpen),
@@ -186,6 +200,7 @@ function matchesFilters(item) {
     (!state.startDate || item.listedDate >= state.startDate) &&
     (!state.endDate || item.listedDate <= state.endDate);
   const inIndustry = state.industry === "all" || item.industry === state.industry;
+  const inStatus = state.status === "all" || item.statusCategory === state.status;
   const inPerformance =
     state.performance === "all" ||
     (state.performance === "positive" && item.cumulativeReturn >= 0) ||
@@ -197,7 +212,7 @@ function matchesFilters(item) {
     item.code.toLowerCase().includes(keyword) ||
     item.industry.toLowerCase().includes(keyword);
 
-  return inDateRange && inIndustry && inPerformance && inSearch;
+  return inDateRange && inIndustry && inStatus && inPerformance && inSearch;
 }
 
 function sortItems(items) {
@@ -284,6 +299,7 @@ function renderTable(items) {
           <td class="company-cell">
             <strong>${item.name}</strong>
             <small>${item.institutionName || item.notes}</small>
+            <span class="status-chip ${item.statusCategory}">${getStatusLabel(item.statusCategory)}</span>
           </td>
           <td>${item.industry}</td>
           <td>${formatDate(item.listedDate)}</td>
@@ -323,6 +339,7 @@ function renderDetail(item) {
   elements.detailTitle.textContent = `${item.name} · ${item.code}`;
 
   const groups = [
+    ["当前分类", getStatusLabel(item.statusCategory)],
     ["公司全称", item.institutionName || "--"],
     ["上市板块", item.sector || "--"],
     ["上市方式", item.listedMode || "--"],
@@ -369,6 +386,17 @@ function renderDetail(item) {
     : "暂无披露";
 }
 
+function getStatusLabel(statusCategory) {
+  const labels = {
+    subscription: "认购中",
+    pending: "待上市",
+    listed: "已上市",
+    all: "全部"
+  };
+
+  return labels[statusCategory] || "待上市";
+}
+
 function render() {
   const filtered = withDerivedFields.filter(matchesFilters);
   const sorted = sortItems(filtered);
@@ -411,6 +439,19 @@ function bindEvents() {
     render();
   });
 
+  elements.statusTabs.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-status]");
+    if (!button) {
+      return;
+    }
+
+    state.status = button.dataset.status;
+    for (const tab of elements.statusTabs.querySelectorAll("button[data-status]")) {
+      tab.classList.toggle("is-active", tab.dataset.status === state.status);
+    }
+    render();
+  });
+
   elements.tableBody.addEventListener("click", (event) => {
     const row = event.target.closest("tr[data-code]");
     if (!row) {
@@ -426,11 +467,15 @@ function bindEvents() {
     state.search = "";
     state.industry = "all";
     state.performance = "all";
+    state.status = "all";
     state.sortBy = "listedDateDesc";
 
     elements.searchInput.value = "";
     elements.performanceFilter.value = "all";
     elements.sortBy.value = "listedDateDesc";
+    for (const tab of elements.statusTabs.querySelectorAll("button[data-status]")) {
+      tab.classList.toggle("is-active", tab.dataset.status === "all");
+    }
     render();
   });
 }
