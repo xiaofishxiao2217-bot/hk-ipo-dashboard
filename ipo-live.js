@@ -1,5 +1,5 @@
 window.iqdiiIpoSnapshot = {
-  "generatedAt": "2026-03-29 06:02:19",
+  "generatedAt": "2026-03-30 07:12:10",
   "source": "iqdii",
   "total": 143,
   "records": [
@@ -92,7 +92,7 @@ window.iqdiiIpoSnapshot = {
       "Price": "40—50"
     },
     {
-      "IsNew_Stock": "1",
+      "IsNew_Stock": "0",
       "ShortName": "瀚天天成",
       "InstitutionName": "瀚天天成电子科技(厦门)股份有限公司",
       "Symbol": "02726",
@@ -136,7 +136,7 @@ window.iqdiiIpoSnapshot = {
       "Price": "76.26—76.26"
     },
     {
-      "IsNew_Stock": "1",
+      "IsNew_Stock": "0",
       "ShortName": "极视角",
       "InstitutionName": "山东极视角科技股份有限公司",
       "Symbol": "06636",
@@ -180,7 +180,7 @@ window.iqdiiIpoSnapshot = {
       "Price": "40—40"
     },
     {
-      "IsNew_Stock": "1",
+      "IsNew_Stock": "0",
       "ShortName": "华沿机器人",
       "InstitutionName": "广东华沿机器人股份有限公司",
       "Symbol": "01021",
@@ -224,7 +224,7 @@ window.iqdiiIpoSnapshot = {
       "Price": "17—17"
     },
     {
-      "IsNew_Stock": "1",
+      "IsNew_Stock": "0",
       "ShortName": "德适－Ｂ",
       "InstitutionName": "杭州德适生物科技股份有限公司",
       "Symbol": "02526",
@@ -268,7 +268,7 @@ window.iqdiiIpoSnapshot = {
       "Price": "95.6—112.5"
     },
     {
-      "IsNew_Stock": "1",
+      "IsNew_Stock": "0",
       "ShortName": "同仁堂医养",
       "InstitutionName": "北京同仁堂医养投资股份有限公司",
       "Symbol": "02667",
