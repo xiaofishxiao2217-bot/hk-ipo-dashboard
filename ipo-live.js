@@ -1,5 +1,5 @@
 window.iqdiiIpoSnapshot = {
-  "generatedAt": "2026-04-02 06:01:50",
+  "generatedAt": "2026-04-03 06:02:02",
   "source": "iqdii",
   "total": 142,
   "records": [
