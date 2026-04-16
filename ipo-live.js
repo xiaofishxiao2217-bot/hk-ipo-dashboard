@@ -1,5 +1,5 @@
 window.iqdiiIpoSnapshot = {
-  "generatedAt": "2026-04-15 07:09:09",
+  "generatedAt": "2026-04-16 07:10:51",
   "source": "iqdii",
   "total": 145,
   "records": [
@@ -180,7 +180,7 @@ window.iqdiiIpoSnapshot = {
       "Price": "39.88—39.88"
     },
     {
-      "IsNew_Stock": "1",
+      "IsNew_Stock": "0",
       "ShortName": "思格新能",
       "InstitutionName": "思格新能源(上海)股份有限公司",
       "Symbol": "06656",
@@ -206,11 +206,11 @@ window.iqdiiIpoSnapshot = {
       "RaiseMoney": "418990",
       "Link": "https%3A%2F%2Fossnoticepdf.iqdii.com%2Fstockdata%2Fnotice%2F06656%2F2026%2F2026040800018_c.pdf",
       "Use": "1%E3%80%81%E7%BA%A638.0%25%EF%BC%88%E6%88%961%2C592.2%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%89%E5%B0%86%E7%94%A8%E4%BA%8E%E8%BF%9B%E4%B8%80%E6%AD%A5%E6%89%A9%E5%A4%A7%E7%A0%94%E5%8F%91%E5%9B%A2%E9%98%9F%E5%8F%8A%E6%8F%90%E5%8D%87%E7%A0%94%E5%8F%91%E8%AE%BE%E5%A4%87%E5%8F%8A%E6%8A%80%E6%9C%AF%EF%BC%9B%3Cbr%20%2F%3E2%E3%80%81%E7%BA%A632.0%25%EF%BC%88%E6%88%961%2C340.8%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%89%E5%B0%86%E7%94%A8%E4%BA%8E%E5%8A%A0%E5%BC%BA%E8%90%A5%E9%94%80%E5%8F%8A%E5%94%AE%E5%90%8E%E6%9C%8D%E5%8A%A1%EF%BC%8C%E4%BB%A5%E6%8E%A8%E5%8A%A8%E6%89%A9%E5%A4%A7%E5%85%A8%E7%90%83%E5%AE%A2%E6%88%B7%E7%BE%A4%E5%92%8C%E4%B8%9A%E5%8A%A1%E8%A6%86%E7%9B%96%E8%8C%83%E5%9B%B4%EF%BC%9B%3Cbr%20%2F%3E3%E3%80%81%E7%BA%A612.0%25%EF%BC%88%E6%88%96502.8%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%89%E5%B0%86%E7%94%A8%E4%BA%8E%E6%89%A9%E5%BC%A0%E4%BA%A7%E8%83%BD%EF%BC%9B%3Cbr%20%2F%3E4%E3%80%81%E7%BA%A69.0%25%EF%BC%88%E6%88%96377.1%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%89%E5%B0%86%E7%94%A8%E4%BA%8E%E5%A4%9A%E5%85%83%E5%8C%96%E4%BA%A7%E5%93%81%E7%BB%84%E5%90%88%E5%8F%8A%E6%89%A9%E5%B1%95%E5%B7%A5%E5%95%86%E4%B8%9A%E5%85%89%E5%82%A8%E5%85%85%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9B%3Cbr%20%2F%3E5%E3%80%81%E7%BA%A69.0%25%EF%BC%88%E6%88%96377.1%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%89%E5%B0%86%E7%94%A8%E4%BA%8E%E8%90%A5%E8%BF%90%E8%B5%84%E9%87%91%E5%8F%8A%E4%B8%80%E8%88%AC%E5%85%AC%E5%8F%B8%E7%94%A8%E9%80%94%E3%80%82",
-      "Subscribed": "N/A",
-      "CodesRate": "N/A",
+      "Subscribed": "1102.05",
+      "CodesRate": "2",
       "MinimumCapital": "32746.96",
-      "GrayPrice": "N/A",
-      "GrayPriceChg": "N/A",
+      "GrayPrice": "578",
+      "GrayPriceChg": "78.29",
       "Currency": "HKD",
       "StockSumCount": "1357",
       "ListedDate": "2026/04/16",
