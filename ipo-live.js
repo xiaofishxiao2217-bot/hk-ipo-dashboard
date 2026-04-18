@@ -1,5 +1,5 @@
 window.iqdiiIpoSnapshot = {
-  "generatedAt": "2026-04-17 07:10:44",
+  "generatedAt": "2026-04-18 06:02:07",
   "source": "iqdii",
   "total": 145,
   "records": [
@@ -129,8 +129,8 @@ window.iqdiiIpoSnapshot = {
       "Startdate": "2026/04/09",
       "Enddate": "2026/04/14",
       "ResultDate": "2026/04/16",
-      "FirstDayOpen": "N/A",
-      "FirstDayChg": "N/A",
+      "FirstDayOpen": "20.7",
+      "FirstDayChg": "144.09",
       "Prospectuses": "04-09—04-14",
       "SubscribedDate": "2026/04/09—2026/04/14",
       "Price": "6.72—7.62"
@@ -173,8 +173,8 @@ window.iqdiiIpoSnapshot = {
       "Startdate": "2026/04/09",
       "Enddate": "2026/04/14",
       "ResultDate": "2026/04/16",
-      "FirstDayOpen": "N/A",
-      "FirstDayChg": "N/A",
+      "FirstDayOpen": "72",
+      "FirstDayChg": "75.53",
       "Prospectuses": "04-09—04-14",
       "SubscribedDate": "2026/04/09—2026/04/14",
       "Price": "39.88—39.88"
