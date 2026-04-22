@@ -1,5 +1,5 @@
 window.iqdiiIpoSnapshot = {
-  "generatedAt": "2026-04-21 07:12:42",
+  "generatedAt": "2026-04-22 07:12:25",
   "source": "iqdii",
   "total": 148,
   "records": [
@@ -145,7 +145,7 @@ window.iqdiiIpoSnapshot = {
       "Industry": "通讯器材",
       "Price_Ceiling": "77.7",
       "Price_Floor": "NaN",
-      "IPOPricing": "N/A",
+      "IPOPricing": "77.7",
       "Shares": "100",
       "Sponsors": "",
       "Coordinator": "",
@@ -217,8 +217,8 @@ window.iqdiiIpoSnapshot = {
       "Startdate": "2026/04/13",
       "Enddate": "2026/04/16",
       "ResultDate": "2026/04/20",
-      "FirstDayOpen": "N/A",
-      "FirstDayChg": "N/A",
+      "FirstDayOpen": "330",
+      "FirstDayChg": "50.09",
       "Prospectuses": "04-13—04-16",
       "SubscribedDate": "2026/04/13—2026/04/16",
       "Price": "N/A—209.88"
