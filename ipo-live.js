@@ -1,5 +1,5 @@
 window.iqdiiIpoSnapshot = {
-  "generatedAt": "2026-04-22 07:12:25",
+  "generatedAt": "2026-04-23 07:15:33",
   "source": "iqdii",
   "total": 148,
   "records": [
@@ -136,7 +136,7 @@ window.iqdiiIpoSnapshot = {
       "Price": "27.64—30.71"
     },
     {
-      "IsNew_Stock": "1",
+      "IsNew_Stock": "0",
       "ShortName": "华勤技术",
       "InstitutionName": "华勤技术股份有限公司",
       "Symbol": "03296",
@@ -162,11 +162,11 @@ window.iqdiiIpoSnapshot = {
       "RaiseMoney": "446310",
       "Link": "https%3A%2F%2Fossnoticepdf.iqdii.com%2Fstockdata%2Fnotice%2F03296%2F2026%2F2026041500012_c.pdf",
       "Use": "1%E3%80%81%E7%BA%A640.0%25%EF%BC%88%E7%BA%A61%2C785.2%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%89%E5%B0%86%E7%94%A8%E4%BA%8E%E4%BB%A5%E4%BA%A7%E5%93%81%E4%B8%BA%E6%A0%B8%E5%BF%83%E7%9A%84%E7%A0%94%E5%8F%91%E6%8A%95%E5%85%A5%EF%BC%8C%E5%A2%9E%E5%BC%BA%E6%8A%80%E6%9C%AF%E5%AE%9E%E5%8A%9B%EF%BC%9B%3Cbr%20%2F%3E2%E3%80%81%E7%BA%A635.0%25%EF%BC%88%E7%BA%A61%2C562.1%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%89%E5%B0%86%E7%94%A8%E4%BA%8E%E6%89%A9%E5%A4%A7%E5%8F%8A%E4%BC%98%E5%8C%96%E5%88%B6%E9%80%A0%E4%BD%93%E7%B3%BB%EF%BC%9B%3Cbr%20%2F%3E3%E3%80%81%E7%BA%A615.0%25%EF%BC%88%E7%BA%A6669.5%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%89%E5%B0%86%E7%94%A8%E4%BA%8E%E6%88%98%E7%95%A5%E6%8A%95%E8%B5%84%E4%B8%8E%E5%9E%82%E7%9B%B4%E6%95%B4%E5%90%88%EF%BC%9B%3Cbr%20%2F%3E4%E3%80%81%E7%BA%A610.0%25%EF%BC%88%E7%BA%A6446.3%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%89%E5%B0%86%E7%94%A8%E4%BA%8E%E8%90%A5%E8%BF%90%E8%B5%84%E9%87%91%E5%8F%8A%E4%B8%80%E8%88%AC%E5%85%AC%E5%8F%B8%E7%94%A8%E9%80%94%E3%80%82",
-      "Subscribed": "N/A",
-      "CodesRate": "N/A",
+      "Subscribed": "531.33",
+      "CodesRate": "12",
       "MinimumCapital": "7848.36",
-      "GrayPrice": "N/A",
-      "GrayPriceChg": "N/A",
+      "GrayPrice": "94",
+      "GrayPriceChg": "20.98",
       "Currency": "HKD",
       "StockSumCount": "5854",
       "ListedDate": "2026/04/23",
