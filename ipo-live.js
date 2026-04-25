@@ -1,5 +1,5 @@
 window.iqdiiIpoSnapshot = {
-  "generatedAt": "2026-04-24 04:22:03",
+  "generatedAt": "2026-04-25 03:55:57",
   "source": "iqdii",
   "total": 149,
   "records": [
@@ -101,7 +101,7 @@ window.iqdiiIpoSnapshot = {
       "Industry": "半导体",
       "Price_Ceiling": "183.2",
       "Price_Floor": "166.6",
-      "IPOPricing": "N/A",
+      "IPOPricing": "183.2",
       "Shares": "15",
       "Sponsors": "",
       "Coordinator": "",
