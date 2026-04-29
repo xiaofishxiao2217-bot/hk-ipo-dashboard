@@ -1,5 +1,5 @@
 window.iqdiiIpoSnapshot = {
-  "generatedAt": "2026-04-28 04:38:52",
+  "generatedAt": "2026-04-29 04:35:00",
   "source": "iqdii",
   "total": 150,
   "records": [
@@ -92,7 +92,7 @@ window.iqdiiIpoSnapshot = {
       "Price": "98.5—98.5"
     },
     {
-      "IsNew_Stock": "1",
+      "IsNew_Stock": "0",
       "ShortName": "商米科技－Ｗ",
       "InstitutionName": "上海商米科技集团股份有限公司",
       "Symbol": "06810",
@@ -115,14 +115,14 @@ window.iqdiiIpoSnapshot = {
       "IssueNumber_HK": "426",
       "IssueNumber_Other": "3836",
       "IssueNumber_GEM": "N/A",
-      "RaiseMoney": "90870",
+      "RaiseMoney": "92200",
       "Link": "https%3A%2F%2Fossnoticepdf.iqdii.com%2Fstockdata%2Fnotice%2F06810%2F2026%2F2026042100018_c.pdf",
       "Use": "1%E3%80%81%E7%BA%A6363.5%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%88%E6%88%96%E7%BA%A640.0%25%EF%BC%89%E7%94%A8%E4%BA%8E%E4%B8%BABIoT%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E7%9A%84%E7%A0%94%E5%8F%91%E6%8F%90%E4%BE%9B%E8%B5%84%E9%87%91%EF%BC%9B%3Cbr%20%2F%3E2%E3%80%81%E7%BA%A6272.6%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%88%E6%88%96%E7%BA%A630.0%25%EF%BC%89%E7%94%A8%E4%BA%8E%E6%8B%A8%E4%BB%98%E5%8A%A0%E5%BC%BA%E4%BE%9B%E5%BA%94%E9%93%BE%E5%8F%8A%E7%94%9F%E4%BA%A7%E8%BF%90%E8%90%A5%EF%BC%9B%3Cbr%20%2F%3E3%E3%80%81%E7%BA%A6181.7%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%88%E6%88%96%E7%BA%A620.0%25%EF%BC%89%E7%94%A8%E4%BA%8E%E6%8B%A8%E4%BB%98%E5%AE%9E%E6%96%BD%E5%85%A8%E7%90%83%E5%B8%82%E5%9C%BA%E6%89%A9%E5%BC%A0%E8%AE%A1%E5%88%92%EF%BC%9B%3Cbr%20%2F%3E4%E3%80%81%E7%BA%A690.9%E7%99%BE%E4%B8%87%E6%B8%AF%E5%85%83%EF%BC%88%E6%88%96%E7%BA%A610.0%25%EF%BC%89%E5%B0%86%E7%94%A8%E4%BA%8E%E8%90%A5%E8%BF%90%E8%B5%84%E9%87%91%E5%8F%8A%E5%85%B6%E4%BB%96%E4%B8%80%E8%88%AC%E5%85%AC%E5%8F%B8%E7%94%A8%E9%80%94%E3%80%82",
-      "Subscribed": "N/A",
-      "CodesRate": "N/A",
+      "Subscribed": "2003.16",
+      "CodesRate": "5",
       "MinimumCapital": "2511.07",
-      "GrayPrice": "N/A",
-      "GrayPriceChg": "N/A",
+      "GrayPrice": "93.65",
+      "GrayPriceChg": "276.71",
       "Currency": "HKD",
       "StockSumCount": "4262",
       "ListedDate": "2026/04/29",
@@ -173,8 +173,8 @@ window.iqdiiIpoSnapshot = {
       "Startdate": "2026/04/20",
       "Enddate": "2026/04/23",
       "ResultDate": "2026/04/27",
-      "FirstDayOpen": "N/A",
-      "FirstDayChg": "N/A",
+      "FirstDayOpen": "880",
+      "FirstDayChg": "383.62",
       "Prospectuses": "04-20—04-23",
       "SubscribedDate": "2026/04/20—2026/04/23",
       "Price": "166.6—183.2"
@@ -217,8 +217,8 @@ window.iqdiiIpoSnapshot = {
       "Startdate": "2026/04/20",
       "Enddate": "2026/04/23",
       "ResultDate": "2026/04/27",
-      "FirstDayOpen": "N/A",
-      "FirstDayChg": "N/A",
+      "FirstDayOpen": "28.3",
+      "FirstDayChg": "0.58",
       "Prospectuses": "04-20—04-23",
       "SubscribedDate": "2026/04/20—2026/04/23",
       "Price": "27.64—30.71"
